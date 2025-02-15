@@ -1,5 +1,5 @@
 import tkinter as tk
-from gui import LibraryGUI
+from gui import LibraryGUI, LoginPage
 
 
 class LibraryApp:
@@ -8,6 +8,10 @@ class LibraryApp:
         self.root.title("Library Management System")
         self.root.geometry("800x500")
 
+        self.gui = LoginPage(self.root, self.show_main_ui)
+
+    def show_main_ui(self):
+        self.login_page = None
         self.gui = LibraryGUI(self.root)
 
 
