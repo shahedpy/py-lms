@@ -7,6 +7,7 @@ from PIL import Image, ImageTk
 class LoginPage:
     def __init__(self, root, on_login_success):
         self.root = root
+        self.on_login_success = on_login_success
 
         self.frame = ttk.Frame(self.root, padding="20")
         self.frame.pack(fill=tk.BOTH, expand=True)
@@ -41,4 +42,20 @@ class LoginPage:
             messagebox.showerror("Error", str(e))
 
     def check_login(self):
-        messagebox.showinfo("Developing", "Coming soon!")
+        username = self.username_entry.get().strip()
+        password = self.password_entry.get().strip()
+
+        if not username or not password:
+            messagebox.showerror(
+                "Error", "Username and password are required!"
+            )
+            return
+
+        if self.authenticate_user(username, password):
+            messagebox.showinfo("Success", "Login successful!")
+
+    def authenticate_user(self, username, password):
+        if username == "admin" and password == "admin":
+            self.on_login_success()
+        else:
+            messagebox.showerror("Error", "Invalid username or password!")
