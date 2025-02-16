@@ -12,7 +12,11 @@ class LoginPage:
         self.frame.pack(fill=tk.BOTH, expand=True)
 
         self.load_logo()
-        ttk.Label(self.frame, text="Library Management System", font=("Arial", 16, "bold")).pack(pady=10)
+        ttk.Label(
+            self.frame,
+            text="Library Management System",
+            font=("Arial", 16, "bold")
+        ).pack(pady=10)
 
         ttk.Label(self.frame, text="Username:").pack()
         self.username_entry = ttk.Entry(self.frame)
@@ -22,7 +26,8 @@ class LoginPage:
         self.password_entry = ttk.Entry(self.frame, show="*")
         self.password_entry.pack(pady=5)
 
-        self.login_button = ttk.Button(self.frame, text="Login", command=self.check_login)
+        self.login_button = ttk.Button(
+            self.frame, text="Login", command=self.check_login)
         self.login_button.pack(pady=10)
 
     def load_logo(self):
