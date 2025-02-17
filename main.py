@@ -11,7 +11,9 @@ class LibraryApp:
         self.gui = LoginPage(self.root, self.show_main_ui)
 
     def show_main_ui(self):
-        self.login_page = None
+        if self.gui.frame:
+            self.gui.frame.destroy()
+
         self.gui = LibraryGUI(self.root)
 
 
