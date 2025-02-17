@@ -12,7 +12,8 @@ def create_user_table():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL UNIQUE,
         password TEXT NOT NULL,
-        is_active BOOLEAN DEFAULT 1
+        is_active BOOLEAN DEFAULT 1,
+        is_superuser BOOLEAN DEFAULT 0
     )
     """)
     conn.commit()
@@ -20,17 +21,24 @@ def create_user_table():
     print("User table created successfully!")
 
 
-def add_user(username, password):
+def add_user(username, password, is_superuser=False):
     """ Add a user to the database securely with hashed password """
     try:
         conn = get_connection()
         cursor = conn.cursor()
 
+        cursor.execute("SELECT COUNT(*) FROM users WHERE username = ?", (username,))
+        user_count = cursor.fetchone()[0]
+        if user_count > 0:
+            print(f"Username '{username}' is already taken.")
+            conn.close()
+            return False
+
         hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 
         cursor.execute(
-            "INSERT INTO users (username, password) VALUES (?, ?)",
-            (username, hashed_password)
+            "INSERT INTO users (username, password, is_superuser) VALUES (?, ?, ?)",
+            (username, hashed_password, is_superuser)
         )
         conn.commit()
         conn.close()
