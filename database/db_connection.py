@@ -1,7 +1,7 @@
 """ database > db_connection.py """
 import sqlite3
 
-DB_NAME = 'database.db'
+DB_NAME = 'database/database.db'
 
 
 def get_connection():
