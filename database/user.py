@@ -18,7 +18,6 @@ def create_user_table():
     """)
     conn.commit()
     conn.close()
-    print("User table created successfully!")
 
 
 def add_user(username, password, is_superuser=False):
