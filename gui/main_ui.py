@@ -27,7 +27,7 @@ class LibraryGUI:
             button.pack(side=tk.TOP, fill=tk.X)
 
         logout_button = ttk.Button(
-            self.sidenav, text="Logout", command=self.on_logout)
+            self.sidenav, text="Logout", command=self.logout)
         logout_button.pack(side=tk.BOTTOM, fill=tk.X, pady=10)
 
     def logout(self):
@@ -35,7 +35,25 @@ class LibraryGUI:
         self.on_logout()
 
 
+def show_login_page():
+    for widget in root.winfo_children():
+        widget.destroy()
+
+    login_label = ttk.Label(root, text="Login Page")
+    login_label.pack(pady=20)
+
+    back_button = ttk.Button(
+        root, text="Back to Main UI", command=show_main_ui)
+    back_button.pack(pady=10)
+
+
+def show_main_ui():
+    for widget in root.winfo_children():
+        widget.destroy()
+    app = LibraryGUI(root, on_logout=show_login_page)
+
+
 if __name__ == "__main__":
     root = tk.Tk()
-    app = LibraryGUI(root)
+    show_main_ui()
     root.mainloop()
