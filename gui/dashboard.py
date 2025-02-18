@@ -9,7 +9,7 @@ class LibraryGUI:
 
         self.on_logout = on_logout
 
-        self.frame = ttk.Frame(self.root, padding="10")
+        self.frame = ttk.Frame(self.root, padding="0")
         self.frame.pack(fill=tk.BOTH, expand=True)
 
         self.sidenav = ttk.Frame(self.frame, width=200, relief=tk.RAISED)
@@ -21,17 +21,63 @@ class LibraryGUI:
         self.create_sidenav_buttons()
 
     def create_sidenav_buttons(self):
-        buttons = ["Dashboard", "Books", "Members", "Issue", "Return", "Settings"]
-        for button_text in buttons:
-            button = ttk.Button(self.sidenav, text=button_text, style="Sidenav.TButton")
+        buttons = {
+            "Dashboard": self.show_dashboard,
+            "Books": self.show_books,
+            "Members": self.show_members,
+            "Issue": self.show_issue,
+            "Return": self.show_return,
+            "Settings": self.show_settings,
+        }
+        for text, command in buttons.items():
+            button = ttk.Button(
+                self.sidenav,
+                text=text,
+                style="Sidenav.TButton",
+                command=command
+            )
             button.pack(side=tk.TOP, fill=tk.X)
 
         logout_button = ttk.Button(
             self.sidenav, text="Logout", command=self.logout)
-        logout_button.pack(side=tk.BOTTOM, fill=tk.X, pady=10)
+        logout_button.pack(side=tk.BOTTOM, fill=tk.X, pady=0)
 
         style = ttk.Style()
         style.configure("Sidenav.TButton", anchor="w", padding=(10, 5))
+
+    def clear_content(self):
+        for widget in self.content.winfo_children():
+            widget.destroy()
+
+    def show_dashboard(self):
+        self.clear_content()
+        label = ttk.Label(self.content, text="Dashboard", font=("Arial", 14))
+        label.pack(pady=20)
+
+    def show_books(self):
+        self.clear_content()
+        label = ttk.Label(self.content, text="Books", font=("Arial", 14))
+        label.pack(pady=20)
+
+    def show_members(self):
+        self.clear_content()
+        label = ttk.Label(self.content, text="Members", font=("Arial", 14))
+        label.pack(pady=20)
+
+    def show_issue(self):
+        self.clear_content()
+        label = ttk.Label(self.content, text="Issue", font=("Arial", 14))
+        label.pack(pady=20)
+
+    def show_return(self):
+        self.clear_content()
+        label = ttk.Label(self.content, text="Return", font=("Arial", 14))
+        label.pack(pady=20)
+
+    def show_settings(self):
+        self.clear_content()
+        label = ttk.Label(self.content, text="Settings", font=("Arial", 14))
+        label.pack(pady=20)
 
     def logout(self):
         self.frame.destroy()
@@ -53,7 +99,6 @@ def show_login_page():
 def show_main_ui():
     for widget in root.winfo_children():
         widget.destroy()
-    app = LibraryGUI(root, on_logout=show_login_page)
 
 
 if __name__ == "__main__":
