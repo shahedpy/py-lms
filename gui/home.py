@@ -23,12 +23,15 @@ class LibraryGUI:
     def create_sidenav_buttons(self):
         buttons = ["Home", "Books", "Members", "Issue", "Return", "Settings"]
         for button_text in buttons:
-            button = ttk.Button(self.sidenav, text=button_text)
+            button = ttk.Button(self.sidenav, text=button_text, style="Sidenav.TButton")
             button.pack(side=tk.TOP, fill=tk.X)
 
         logout_button = ttk.Button(
             self.sidenav, text="Logout", command=self.logout)
         logout_button.pack(side=tk.BOTTOM, fill=tk.X, pady=10)
+
+        style = ttk.Style()
+        style.configure("Sidenav.TButton", anchor="w", padding=(10, 5))
 
     def logout(self):
         self.frame.destroy()
