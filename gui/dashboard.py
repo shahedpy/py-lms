@@ -21,7 +21,7 @@ class LibraryGUI:
         self.create_sidenav_buttons()
 
     def create_sidenav_buttons(self):
-        buttons = ["Home", "Books", "Members", "Issue", "Return", "Settings"]
+        buttons = ["Dashboard", "Books", "Members", "Issue", "Return", "Settings"]
         for button_text in buttons:
             button = ttk.Button(self.sidenav, text=button_text, style="Sidenav.TButton")
             button.pack(side=tk.TOP, fill=tk.X)

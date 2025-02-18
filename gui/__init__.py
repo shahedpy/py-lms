@@ -1,4 +1,4 @@
-from .home import LibraryGUI
+from .dashboard import LibraryGUI
 from .login import LoginPage
 
 
