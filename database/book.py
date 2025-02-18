@@ -1,1 +1,43 @@
 """ database > book.py """
+
+from database import get_connection
+
+
+def create_books_table():
+    """Creates the books table if it doesn't exist."""
+    with get_connection() as conn:
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS books (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                title TEXT NOT NULL,
+                author TEXT NOT NULL,
+                year INTEGER
+            )
+            """
+        )
+        conn.commit()
+
+
+def add_book(title, author, year):
+    """Adds a book to the books table."""
+    with get_connection() as conn:
+        conn.execute(
+            """
+            INSERT INTO books (title, author, year)
+            VALUES (?, ?, ?)
+            """,
+            (title, author, year)
+        )
+        conn.commit()
+
+
+def get_books():
+    """Returns all books in the books table."""
+    with get_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM books")
+        return cursor.fetchall()
+
+
+create_books_table()
