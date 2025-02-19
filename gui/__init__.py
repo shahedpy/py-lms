@@ -1,8 +1,10 @@
-from .dashboard import LibraryGUI
 from .login import LoginPage
+from .dashboard import LibraryGUI
+from .book import BookPage
 
 
 __all__ = (
-    LibraryGUI,
     LoginPage,
+    LibraryGUI,
+    BookPage
 )

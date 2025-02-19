@@ -1,6 +1,7 @@
 """ gui > main_ui.py """
 import tkinter as tk
 from tkinter import ttk
+from gui.book import BookPage
 
 
 class LibraryGUI:
@@ -52,32 +53,32 @@ class LibraryGUI:
     def show_dashboard(self):
         self.clear_content()
         label = ttk.Label(self.content, text="Dashboard", font=("Arial", 14))
-        label.pack(pady=20)
+        label.pack(pady=10)
 
     def show_books(self):
+        """Clears content and loads the BookPage."""
         self.clear_content()
-        label = ttk.Label(self.content, text="Books", font=("Arial", 14))
-        label.pack(pady=20)
+        BookPage(self.content)
 
     def show_members(self):
         self.clear_content()
         label = ttk.Label(self.content, text="Members", font=("Arial", 14))
-        label.pack(pady=20)
+        label.pack(pady=10)
 
     def show_issue(self):
         self.clear_content()
         label = ttk.Label(self.content, text="Issue", font=("Arial", 14))
-        label.pack(pady=20)
+        label.pack(pady=10)
 
     def show_return(self):
         self.clear_content()
         label = ttk.Label(self.content, text="Return", font=("Arial", 14))
-        label.pack(pady=20)
+        label.pack(pady=10)
 
     def show_settings(self):
         self.clear_content()
         label = ttk.Label(self.content, text="Settings", font=("Arial", 14))
-        label.pack(pady=20)
+        label.pack(pady=10)
 
     def logout(self):
         self.frame.destroy()
