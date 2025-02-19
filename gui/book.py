@@ -30,7 +30,12 @@ class BookPage:
             self.book_table.heading(col, text=col)
             self.book_table.column(col, width=100)
 
-        self.book_table.pack(fill=tk.BOTH, expand=True)
+        scrollbar = ttk.Scrollbar(
+            table_frame, orient="vertical", command=self.book_table.yview)
+        self.book_table.configure(yscrollcommand=scrollbar.set)
+
+        self.book_table.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
         form_frame = ttk.Frame(self.content)
         form_frame.pack(pady=10)
