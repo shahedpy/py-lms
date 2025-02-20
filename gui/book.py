@@ -108,6 +108,7 @@ class BookPage:
             self.year_entry.insert(0, book_data[3])
 
             self.update_button["state"] = tk.NORMAL
+            self.add_button["state"] = tk.DISABLED
 
     def update_selected_book(self):
         title = self.title_entry.get()
@@ -116,6 +117,7 @@ class BookPage:
 
         if title and author and year.isdigit():
             update_book(self.selected_book_id, title, author, year)
+            self.book_table.selection_remove(self.book_table.selection())
             self.clear_form()
             self.load_books()
             messagebox.showinfo("Success", "Book updated successfully!")
