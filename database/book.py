@@ -40,4 +40,18 @@ def get_books():
         return cursor.fetchall()
 
 
+def update_book(book_id, title, author, year):
+    """Updates a book in the books table."""
+    with get_connection() as conn:
+        conn.execute(
+            """
+            UPDATE books
+            SET title = ?, author = ?, year = ?
+            WHERE id = ?
+            """,
+            (title, author, year, book_id)
+        )
+        conn.commit()
+
+
 create_books_table()
