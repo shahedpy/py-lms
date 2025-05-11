@@ -1,7 +1,7 @@
 """ gui > book.py """
 import tkinter as tk
 from tkinter import ttk,  messagebox
-from database.book import add_book, get_books, update_book
+from database import BookDatabase
 
 
 class BookPage:
@@ -77,7 +77,7 @@ class BookPage:
         self.load_books()
 
     def load_books(self):
-        books = get_books()
+        books = BookDatabase.get_books()
         self.book_table.delete(*self.book_table.get_children())
 
         for book in books:
@@ -90,7 +90,7 @@ class BookPage:
         price = self.price_entry.get()
 
         if title and author and year.isdigit() and price.replace('.', '', 1).isdigit(): # noqa
-            add_book(title, author, year, price)
+            BookDatabase.add_book(title, author, year, price)
             self.load_books()
             self.clear_form()
             messagebox.showinfo("Success", "Book added successfully!")
@@ -120,7 +120,9 @@ class BookPage:
         price = self.price_entry.get()
 
         if title and author and year.isdigit() and price.replace('.', '', 1).isdigit(): # noqa
-            update_book(self.selected_book_id, title, author, year, price)
+            BookDatabase.update_book(
+                self.selected_book_id, title, author, year, price
+            )
             self.book_table.selection_remove(self.book_table.selection())
             self.clear_form()
             self.load_books()
