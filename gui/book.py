@@ -56,6 +56,10 @@ class BookPage:
         self.year_entry = ttk.Entry(form_frame)
         self.year_entry.grid(row=1, column=2, padx=5)
 
+        ttk.Label(form_frame, text="Price:").grid(row=0, column=3)
+        self.price_entry = ttk.Entry(form_frame)
+        self.price_entry.grid(row=1, column=3, padx=5)
+
         button_frame = ttk.Frame(self.content)
         button_frame.pack(pady=10)
 
@@ -83,13 +87,15 @@ class BookPage:
         title = self.title_entry.get()
         author = self.author_entry.get()
         year = self.year_entry.get()
+        price = self.price_entry.get()
 
-        if title and author and year.isdigit():
-            add_book(title, author, year)
+        if title and author and year.isdigit() and price.replace('.', '', 1).isdigit(): # noqa
+            add_book(title, author, year, price)
             self.load_books()
             self.title_entry.delete(0, tk.END)
             self.author_entry.delete(0, tk.END)
             self.year_entry.delete(0, tk.END)
+            self.price_entry.delete(0, tk.END)
             messagebox.showinfo("Success", "Book added successfully!")
         else:
             messagebox.showerror("Error", "Invalid input!")

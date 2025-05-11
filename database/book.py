@@ -11,23 +11,23 @@ def create_books_table():
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 title TEXT NOT NULL,
                 author TEXT NOT NULL,
-                year INTEGER,
-                price REAL,
+                year INTEGER NOT NULL,
+                price REAL NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
             """)
         conn.commit()
 
 
-def add_book(title, author, year):
+def add_book(title, author, year, price):
     """Adds a book to the books table."""
     with get_connection() as conn:
         conn.execute(
             """
-            INSERT INTO books (title, author, year)
-            VALUES (?, ?, ?)
+            INSERT INTO books (title, author, year, price)
+            VALUES (?, ?, ?, ?)
             """,
-            (title, author, year)
+            (title, author, year, price)
         )
         conn.commit()
 
