@@ -1,4 +1,4 @@
-""" gui > main_ui.py """
+""" gui > controller.py """
 import tkinter as tk
 from tkinter import ttk
 from gui.book import BookPage

@@ -1,5 +1,5 @@
 from .login import LoginPage
-from .dashboard import LibraryGUI
+from .controller import LibraryGUI
 from .book import BookPage
 
 
