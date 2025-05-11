@@ -9,7 +9,6 @@ def create_books_table():
         conn.execute("""
             CREATE TABLE IF NOT EXISTS books (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
-                code TEXT NOT NULL UNIQUE,
                 title TEXT NOT NULL,
                 author TEXT NOT NULL,
                 year INTEGER,

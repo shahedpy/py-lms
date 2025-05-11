@@ -12,6 +12,10 @@ def create_superuser():
     """ Add a superuser to the database """
     username = input("Enter username: ")
     password = getpass.getpass("Enter password: ")
+    password_confirm = getpass.getpass("Confirm password: ")
+    if password != password_confirm:
+        print("Passwords do not match!")
+        return
     if add_user(username, password, is_superuser=True):
         print(f"Superuser '{username}' created successfully!")
     else:

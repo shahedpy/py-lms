@@ -23,7 +23,7 @@ class BookPage:
         table_frame = ttk.Frame(self.content)
         table_frame.pack(fill=tk.BOTH, expand=True, pady=10)
 
-        columns = ("ID", "Title", "Author", "Year")
+        columns = ("ID", "Title", "Author", "Year", "Price", "Created At")
         self.book_table = ttk.Treeview(
             table_frame, columns=columns, show="headings"
         )
