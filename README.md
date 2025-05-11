@@ -15,6 +15,22 @@ python main.py
 python database/add_superuser.py
 ```
 
+## Features
+- Login
+    - Create Superuser
+- Book
+    - Book List
+    - Add Book
+    - Update Book
+    - Delete Book
+    - Search Book
+- Member
+    - Member List
+- Issue
+- Return
+- Users
+- Settings
+
 ## 📁 Project Structure
 ```
 .

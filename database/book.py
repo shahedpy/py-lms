@@ -1,5 +1,4 @@
 """ database > book.py """
-
 from database import get_connection
 
 
