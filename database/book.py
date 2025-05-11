@@ -6,16 +6,17 @@ from database import get_connection
 def create_books_table():
     """Creates the books table if it doesn't exist."""
     with get_connection() as conn:
-        conn.execute(
-            """
+        conn.execute("""
             CREATE TABLE IF NOT EXISTS books (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
+                code TEXT NOT NULL UNIQUE,
                 title TEXT NOT NULL,
                 author TEXT NOT NULL,
-                year INTEGER
+                year INTEGER,
+                price REAL,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
-            """
-        )
+            """)
         conn.commit()
 
 
