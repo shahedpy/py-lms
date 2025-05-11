@@ -40,16 +40,16 @@ def get_books():
         return cursor.fetchall()
 
 
-def update_book(book_id, title, author, year):
+def update_book(book_id, title, author, year, price):
     """Updates a book in the books table."""
     with get_connection() as conn:
         conn.execute(
             """
             UPDATE books
-            SET title = ?, author = ?, year = ?
+            SET title = ?, author = ?, year = ?, price = ?
             WHERE id = ?
             """,
-            (title, author, year, book_id)
+            (title, author, year, price, book_id)
         )
         conn.commit()
 
