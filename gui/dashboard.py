@@ -1,9 +1,9 @@
-""" gui > member.py """
+""" gui > dashboard.py """
 import tkinter as tk
 from tkinter import ttk
 
 
-class MemberPage:
+class DashboardPage:
     def __init__(self, parent_frame):
         self.parent_frame = parent_frame
         self.content = ttk.Frame(self.parent_frame, padding="0")
@@ -13,6 +13,6 @@ class MemberPage:
 
     def create_widgets(self):
         label = ttk.Label(
-            self.content, text="Members", font=("Arial", 14)
+            self.content, text="Dashboard", font=("Arial", 14)
         )
         label.pack(pady=5)

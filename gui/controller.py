@@ -1,7 +1,9 @@
 """ gui > controller.py """
 import tkinter as tk
 from tkinter import ttk
+from gui.dashboard import DashboardPage
 from gui.book import BookPage
+from gui.member import MemberPage
 
 
 class LibraryGUI:
@@ -53,8 +55,7 @@ class LibraryGUI:
 
     def show_dashboard(self):
         self.clear_content()
-        label = ttk.Label(self.content, text="Dashboard", font=("Arial", 14))
-        label.pack(pady=10)
+        DashboardPage(self.content)
 
     def show_books(self):
         """Clears content and loads the BookPage."""
@@ -63,8 +64,7 @@ class LibraryGUI:
 
     def show_members(self):
         self.clear_content()
-        label = ttk.Label(self.content, text="Members", font=("Arial", 14))
-        label.pack(pady=10)
+        MemberPage(self.content)
 
     def show_issue(self):
         self.clear_content()
