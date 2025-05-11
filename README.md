@@ -1,4 +1,4 @@
-# 📚 Library Management System\
+# 📚 Library Management System
 A simple Library Management System built with Python 3.13.3. This application helps manage books, users, and transactions in a library environment.
 
 ## 🛠 Requirements
