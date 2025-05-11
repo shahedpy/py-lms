@@ -20,6 +20,7 @@ class LibraryGUI:
         self.content.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
         self.create_sidenav_buttons()
+        self.show_dashboard()
 
     def create_sidenav_buttons(self):
         buttons = {
