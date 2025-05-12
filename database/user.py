@@ -26,7 +26,9 @@ def add_user(username, password, is_superuser=False):
         conn = get_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT COUNT(*) FROM users WHERE username = ?", (username,))
+        cursor.execute(
+            "SELECT COUNT(*) FROM users WHERE username = ?", (username,)
+        )
         user_count = cursor.fetchone()[0]
         if user_count > 0:
             print(f"Username '{username}' is already taken.")
@@ -36,7 +38,7 @@ def add_user(username, password, is_superuser=False):
         hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
 
         cursor.execute(
-            "INSERT INTO users (username, password, is_superuser) VALUES (?, ?, ?)",
+            "INSERT INTO users (username, password, is_superuser) VALUES (?, ?, ?)", # noqa
             (username, hashed_password, is_superuser)
         )
         conn.commit()
