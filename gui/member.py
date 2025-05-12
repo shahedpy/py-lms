@@ -55,6 +55,14 @@ class MemberPage:
         self.phone_entry = ttk.Entry(form_frame)
         self.phone_entry.grid(row=1, column=2, padx=5)
 
+        button_frame = ttk.Frame(self.content)
+        button_frame.pack(pady=10)
+
+        self.add_button = ttk.Button(
+            button_frame, text="Add Member", command=self.submit_member
+        )
+        self.add_button.grid(row=0, column=0, padx=5)
+
         self.load_members()
 
     def load_members(self):
@@ -63,6 +71,16 @@ class MemberPage:
         members = member_db.get_members()
         for member in members:
             self.member_table.insert("", "end", values=member)
+
+    def submit_member(self):
+        name = self.name_entry.get()
+        email = self.email_entry.get()
+        phone = self.phone_entry.get()
+
+        if name and email and phone:
+            member_db.add_member(name, email, phone)
+            self.load_members()
+            self.clear_entries()
 
     def on_member_select(self, event):
         selected = self.member_table.selection()
@@ -75,3 +93,8 @@ class MemberPage:
             self.email_entry.insert(0, values[2])
             self.phone_entry.delete(0, tk.END)
             self.phone_entry.insert(0, values[3])
+
+    def clear_entries(self):
+        self.name_entry.delete(0, tk.END)
+        self.email_entry.delete(0, tk.END)
+        self.phone_entry.delete(0, tk.END)
