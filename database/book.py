@@ -21,7 +21,7 @@ class BookDatabase:
                 """)
             conn.commit()
 
-    def add_book(title, author, year, price):
+    def add_book(self, title, author, year, price):
         """Adds a book to the books table."""
         with get_connection() as conn:
             conn.execute(
@@ -33,14 +33,14 @@ class BookDatabase:
             )
             conn.commit()
 
-    def get_books():
+    def get_books(self):
         """Returns all books in the books table."""
         with get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM books")
             return cursor.fetchall()
 
-    def update_book(book_id, title, author, year, price):
+    def update_book(self, book_id, title, author, year, price):
         """Updates a book in the books table."""
         with get_connection() as conn:
             conn.execute(
@@ -52,3 +52,6 @@ class BookDatabase:
                 (title, author, year, price, book_id)
             )
             conn.commit()
+
+
+book_db = BookDatabase()
