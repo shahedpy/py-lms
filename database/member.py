@@ -30,7 +30,7 @@ class MemberDatabase:
             )
             conn.commit()
 
-    def get_members(self):
+    def get_members():
         """Returns all members in the members table."""
         with get_connection() as conn:
             cursor = conn.cursor()

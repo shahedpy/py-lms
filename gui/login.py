@@ -21,12 +21,23 @@ class LoginPage:
         ).pack(pady=10)
 
         ttk.Label(self.frame, text="Username:").pack()
-        self.username_entry = ttk.Entry(self.frame)
-        self.username_entry.pack(pady=5)
+        self.username_entry = ttk.Entry(
+            self.frame, width=30, font=("Arial", 11)
+        )
+        self.username_entry.focus()
+        self.username_entry.bind(
+            "<Return>", lambda event: self.password_entry.focus()
+        )
+        self.username_entry.pack(pady=5, ipady=5)
 
         ttk.Label(self.frame, text="Password:").pack()
-        self.password_entry = ttk.Entry(self.frame, show="*")
-        self.password_entry.pack(pady=5)
+        self.password_entry = ttk.Entry(
+            self.frame, show="*", width=30, font=("Arial", 11)
+        )
+        self.password_entry.bind(
+            "<Return>", lambda event: self.check_login()
+        )
+        self.password_entry.pack(pady=5, ipady=5)
 
         self.login_button = ttk.Button(
             self.frame, text="Login", command=self.check_login)

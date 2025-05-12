@@ -33,7 +33,8 @@ class BookPage:
             self.book_table.column(col, width=100)
 
         scrollbar = ttk.Scrollbar(
-            table_frame, orient="vertical", command=self.book_table.yview)
+            table_frame, orient="vertical", command=self.book_table.yview
+        )
         self.book_table.configure(yscrollcommand=scrollbar.set)
 
         self.book_table.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
