@@ -5,6 +5,8 @@ from database import get_connection
 class MemberDatabase:
     def __init__(self):
         self._create_members_table()
+
+    def _create_members_table(self):
         """Creates the members table if it doesn't exist."""
         with get_connection() as conn:
             conn.execute("""
@@ -30,7 +32,7 @@ class MemberDatabase:
             )
             conn.commit()
 
-    def get_members():
+    def get_members(self):
         """Returns all members in the members table."""
         with get_connection() as conn:
             cursor = conn.cursor()
@@ -61,3 +63,6 @@ class MemberDatabase:
                 (member_id,)
             )
             conn.commit()
+
+
+member_db = MemberDatabase()

@@ -1,7 +1,7 @@
 """ gui > member.py """
 import tkinter as tk
 from tkinter import ttk
-from database import MemberDatabase
+from database import member_db
 
 
 class MemberPage:
@@ -60,7 +60,7 @@ class MemberPage:
     def load_members(self):
         self.member_table.delete(*self.member_table.get_children())
 
-        members = MemberDatabase.get_members()
+        members = member_db.get_members()
         for member in members:
             self.member_table.insert("", "end", values=member)
 
