@@ -106,10 +106,12 @@ class BookPage:
             self.title_entry.delete(0, tk.END)
             self.author_entry.delete(0, tk.END)
             self.year_entry.delete(0, tk.END)
+            self.price_entry.delete(0, tk.END)
 
             self.title_entry.insert(0, book_data[1])
             self.author_entry.insert(0, book_data[2])
             self.year_entry.insert(0, book_data[3])
+            self.price_entry.insert(0, book_data[4])
 
             self.update_button["state"] = tk.NORMAL
             self.add_button["state"] = tk.DISABLED
