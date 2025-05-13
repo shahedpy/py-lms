@@ -47,12 +47,22 @@ python database/add_superuser.py
 ```
 .
 ├── main.py
+├── assets/images/
+|   ├── bubt_full_logo.png
+|   └── bubt_logo.png
 ├── database/
 │   ├── __init__.py
-│   ├── models.py
+│   ├── database.db
 │   ├── add_superuser.py
-│   └── database.db
-├── venv/
+│   ├── book.py
+│   ├── member.py
+│   └── transaction.py
+├── gui/
+│   ├── __init__.py
+│   ├── controller.py
+│   ├── login.py
+│   ├── book.py
+|   └── member.py
 ├── README.md
 └── requirements.txt
 ```
