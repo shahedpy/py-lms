@@ -16,22 +16,30 @@ class BookPage:
 
     def create_widgets(self):
         label = ttk.Label(
-            self.content, text="Books", font=("Arial", 14)
-        )
+            self.content, text="Books", font=("Arial", 14))
         label.pack(pady=5)
+
+        search_frame = ttk.Frame(self.content)
+        search_frame.pack(pady=5)
+        ttk.Label(search_frame).pack(side=tk.LEFT, padx=(0, 5))
+        self.search_entry = ttk.Entry(search_frame, width=40)
+        self.search_entry.pack(side=tk.LEFT, padx=5)
+        search_button = ttk.Button(
+            search_frame, text="Search", command=self.search_books)
+        search_button.pack(side=tk.LEFT, padx=5)
+        reset_button = ttk.Button(
+            search_frame, text="Reset", command=self.reset_search)
+        reset_button.pack(side=tk.LEFT, padx=5)
 
         table_frame = ttk.Frame(self.content)
         table_frame.pack(fill=tk.BOTH, expand=True, pady=10)
-
         columns = ("ID", "Title", "Author", "Year", "Price", "Created At")
         self.book_table = ttk.Treeview(
             table_frame, columns=columns, show="headings"
         )
-
         for col in columns:
             self.book_table.heading(col, text=col)
             self.book_table.column(col, width=100)
-
         scrollbar = ttk.Scrollbar(
             table_frame, orient="vertical", command=self.book_table.yview
         )
@@ -83,6 +91,25 @@ class BookPage:
 
         for book in books:
             self.book_table.insert("", tk.END, values=book)
+
+    def search_books(self):
+        keyword = self.search_entry.get().strip()
+        if keyword:
+            books = book_db.search_books(keyword)
+            self.book_table.delete(*self.book_table.get_children())
+            for book in books:
+                self.book_table.insert("", tk.END, values=book)
+        else:
+            messagebox.showwarning(
+                "Input Needed", "Please enter a keyword to search."
+            )
+
+    def reset_search(self):
+        self.search_entry.delete(0, tk.END)
+        self.load_books()
+
+    def delete_selected_book(self):
+        pass
 
     def submit_book(self):
         title = self.title_entry.get()

@@ -64,15 +64,5 @@ class MemberDatabase:
             )
             conn.commit()
 
-    def search_books(self, keyword):
-        """Searches books by title or author."""
-        with get_connection() as conn:
-            cursor = conn.cursor()
-            cursor.execute("""
-                SELECT * FROM books
-                WHERE title LIKE ? OR author LIKE ?
-            """, (f"%{keyword}%", f"%{keyword}%"))
-            return cursor.fetchall()
-
 
 member_db = MemberDatabase()
