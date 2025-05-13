@@ -12,7 +12,7 @@ python main.py
 
 ## 👑 Create Superuser
 ```bash
-python database/create_superuser.py
+python database/createsuperuser.py
 ```
 
 ## Features
