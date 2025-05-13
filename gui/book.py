@@ -83,6 +83,12 @@ class BookPage:
         self.update_button.grid(row=0, column=1, padx=5)
         self.update_button["state"] = tk.DISABLED
 
+        self.delete_button = ttk.Button(
+            button_frame, text="Delete Book", command=self.delete_selected_book
+        )
+        self.delete_button.grid(row=0, column=2, padx=5)
+        self.delete_button["state"] = tk.DISABLED
+
         self.load_books()
 
     def load_books(self):
@@ -109,7 +115,20 @@ class BookPage:
         self.load_books()
 
     def delete_selected_book(self):
-        pass
+        selected = self.book_table.selection()
+        if selected:
+            book_data = self.book_table.item(selected[0], "values")
+            book_id = book_data[0]
+
+            confirm = messagebox.askyesno(
+                "Confirm Delete",
+                f"Are you sure you want to delete the book '{book_data[1]}'?"
+            )
+            if confirm:
+                book_db.delete_book(book_id)
+                self.clear_form()
+                self.load_books()
+                messagebox.showinfo("Success", "Book deleted successfully!")
 
     def submit_book(self):
         title = self.title_entry.get()
@@ -141,6 +160,7 @@ class BookPage:
             self.price_entry.insert(0, book_data[4])
 
             self.update_button["state"] = tk.NORMAL
+            self.delete_button["state"] = tk.NORMAL
             self.add_button["state"] = tk.DISABLED
 
     def update_selected_book(self):
@@ -166,4 +186,6 @@ class BookPage:
         self.year_entry.delete(0, tk.END)
         self.price_entry.delete(0, tk.END)
         self.selected_book_id = None
+        self.add_button["state"] = tk.NORMAL
         self.update_button["state"] = tk.DISABLED
+        self.delete_button["state"] = tk.DISABLED
