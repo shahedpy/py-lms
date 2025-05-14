@@ -13,10 +13,9 @@ class MemberPage:
         self.create_widgets()
 
     def create_widgets(self):
-        label = ttk.Label(
-            self.content, text="Members", font=("Arial", 14)
-        )
-        label.pack(pady=5)
+        ttk.Label(
+            self.content, text="Members", font=("Arial", 16, "bold")
+        ).pack(pady=5)
 
         table_frame = ttk.Frame(self.content)
         table_frame.pack(fill=tk.BOTH, expand=True, pady=10)

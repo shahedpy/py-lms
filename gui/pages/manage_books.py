@@ -4,7 +4,7 @@ from tkinter import ttk,  messagebox
 from database import book_db
 
 
-class BookPage:
+class ManageBooksPage:
     def __init__(self, parent_frame):
         self.parent_frame = parent_frame
         self.content = ttk.Frame(self.parent_frame, padding="0")
@@ -15,9 +15,9 @@ class BookPage:
         self.create_widgets()
 
     def create_widgets(self):
-        label = ttk.Label(
-            self.content, text="Books", font=("Arial", 14))
-        label.pack(pady=5)
+        ttk.Label(
+            self.content, text="📚 Manage Books", font=("Arial", 16, "bold")
+        ).pack(pady=10)
 
         search_frame = ttk.Frame(self.content)
         search_frame.pack(pady=5)

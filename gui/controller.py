@@ -2,8 +2,8 @@
 import tkinter as tk
 from tkinter import ttk
 from gui.pages import (
-    DashboardPage, BookPage, MemberPage,
-    IssueBookPage, ReturnBookPage,
+    DashboardPage, MemberPage,
+    ManageBooksPage, IssueBookPage, ReturnBookPage,
     SettingsPage
 )
 
@@ -59,14 +59,14 @@ class LibraryGUI:
         self.clear_content()
         DashboardPage(self.content)
 
-    def show_books(self):
-        """Clears content and loads the BookPage."""
-        self.clear_content()
-        BookPage(self.content)
-
     def show_members(self):
         self.clear_content()
         MemberPage(self.content)
+
+    def show_books(self):
+        """Clears content and loads the BookPage."""
+        self.clear_content()
+        ManageBooksPage(self.content)
 
     def show_issue(self):
         self.clear_content()
