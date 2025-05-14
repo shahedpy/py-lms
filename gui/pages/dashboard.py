@@ -1,4 +1,4 @@
-""" gui > dashboard.py """
+""" gui > pages > dashboard.py """
 import tkinter as tk
 from tkinter import ttk
 

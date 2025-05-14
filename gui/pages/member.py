@@ -1,4 +1,4 @@
-""" gui > member.py """
+""" gui > pages > member.py """
 import tkinter as tk
 from tkinter import ttk
 from database import member_db

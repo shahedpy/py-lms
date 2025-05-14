@@ -1,4 +1,4 @@
-""" gui > issue_book.py """
+""" gui > pages > issue_book.py """
 import tkinter as tk
 from tkinter import ttk
 

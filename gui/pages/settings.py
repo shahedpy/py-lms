@@ -1,4 +1,4 @@
-""" gui > setting.py """
+""" gui > pages > setting.py """
 import tkinter as tk
 from tkinter import ttk
 
