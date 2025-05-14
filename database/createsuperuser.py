@@ -1,4 +1,4 @@
-# Add the parent directory to the sys.path
+""" database/createsuperuser.py """
 import sys
 import os
 import getpass
