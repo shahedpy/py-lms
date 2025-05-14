@@ -29,9 +29,9 @@ class LibraryGUI:
             "📊 Dashboard": self.show_dashboard,
             "📚 Books": self.show_books,
             "👥 Members": self.show_members,
-            "Issue": self.show_issue,
-            "Return": self.show_return,
-            "Settings": self.show_settings,
+            "➕ Issue": self.show_issue,
+            "📥 Return": self.show_return,
+            "⚙️ Settings": self.show_settings,
         }
         for text, command in buttons.items():
             button = ttk.Button(

@@ -22,7 +22,7 @@ class LoginPage:
 
         # Username field
         ttk.Label(
-            self.frame, text="Username:", font=("Arial", 11)).pack(anchor=tk.W)
+            self.frame, text="Username:", font=("Arial")).pack(anchor=tk.W)
         self.username_entry = ttk.Entry(
             self.frame, width=35, font=("Arial", 11))
         self.username_entry.pack(pady=5, ipady=5, anchor=tk.W)
@@ -33,7 +33,7 @@ class LoginPage:
 
         # Password field
         ttk.Label(
-            self.frame, text="Password:", font=("Arial", 11)).pack(anchor=tk.W)
+            self.frame, text="Password:", font=("Arial")).pack(anchor=tk.W)
         self.password_entry = ttk.Entry(
             self.frame, show="*", width=35, font=("Arial", 11))
         self.password_entry.pack(pady=5, ipady=5, anchor=tk.W)

@@ -17,7 +17,6 @@ class DashboardPage:
         )
         title_label.pack(pady=(0, 20))
 
-        # Info frame
         info_frame = ttk.Frame(self.content)
         info_frame.pack(fill=tk.BOTH, expand=True)
 
