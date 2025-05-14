@@ -11,33 +11,34 @@ class LoginPage:
         self.on_login_success = on_login_success
 
         self.frame = ttk.Frame(self.root, padding="20")
-        self.frame.pack(fill=tk.BOTH, expand=True)
+        self.frame.place(relx=0.5, rely=0.45, anchor=tk.CENTER)
 
         self.load_logo()
         ttk.Label(
             self.frame,
             text="Library Management System",
-            font=("Arial", 16, "bold")
-        ).pack(pady=10)
+            font=("Arial", 18, "bold")
+        ).pack(pady=(10, 20))
 
-        ttk.Label(self.frame, text="Username:").pack()
+        # Username field
+        ttk.Label(
+            self.frame, text="Username:", font=("Arial", 11)).pack(anchor=tk.W)
         self.username_entry = ttk.Entry(
-            self.frame, width=30, font=("Arial", 11)
-        )
+            self.frame, width=35, font=("Arial", 11))
+        self.username_entry.pack(pady=5, ipady=5, anchor=tk.W)
         self.username_entry.focus()
         self.username_entry.bind(
             "<Return>", lambda event: self.password_entry.focus()
         )
-        self.username_entry.pack(pady=5, ipady=5)
 
-        ttk.Label(self.frame, text="Password:").pack()
+        # Password field
+        ttk.Label(
+            self.frame, text="Password:", font=("Arial", 11)).pack(anchor=tk.W)
         self.password_entry = ttk.Entry(
-            self.frame, show="*", width=30, font=("Arial", 11)
-        )
+            self.frame, show="*", width=35, font=("Arial", 11))
+        self.password_entry.pack(pady=5, ipady=5, anchor=tk.W)
         self.password_entry.bind(
-            "<Return>", lambda event: self.check_login()
-        )
-        self.password_entry.pack(pady=5, ipady=5)
+            "<Return>", lambda event: self.check_login())
 
         self.login_button = ttk.Button(
             self.frame, text="Login", command=self.check_login)
