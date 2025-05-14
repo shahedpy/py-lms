@@ -1,12 +1,11 @@
 """ gui > controller.py """
 import tkinter as tk
 from tkinter import ttk
-from gui.dashboard import DashboardPage
-from gui.book import BookPage
-from gui.member import MemberPage
-from gui.issue_book import IssueBookPage
-from gui.return_book import ReturnBookPage
-from gui.settings import SettingsPage
+from gui.pages import (
+    DashboardPage, BookPage, MemberPage,
+    IssueBookPage, ReturnBookPage,
+    SettingsPage
+)
 
 
 class LibraryGUI:

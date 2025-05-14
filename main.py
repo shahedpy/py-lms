@@ -1,5 +1,6 @@
 import tkinter as tk
-from gui import LibraryGUI, LoginPage
+from gui import LibraryGUI
+from gui.pages import LoginPage
 
 
 class LibraryApp:
