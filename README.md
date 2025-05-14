@@ -60,9 +60,15 @@ python database/createsuperuser.py
 ├── gui/
 │   ├── __init__.py
 │   ├── controller.py
-│   ├── login.py
-│   ├── book.py
-|   └── member.py
+│   └── pages/
+│       ├── __init__.py
+│       ├── login.py
+│       ├── dashboard.py
+│       ├── book.py
+│       ├── member.py
+│       ├── issue_book.py
+│       ├── return_book.py
+|       └── settings.py
 ├── README.md
 └── requirements.txt
 ```
