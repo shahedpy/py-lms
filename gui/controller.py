@@ -4,6 +4,9 @@ from tkinter import ttk
 from gui.dashboard import DashboardPage
 from gui.book import BookPage
 from gui.member import MemberPage
+from gui.issue_book import IssueBookPage
+from gui.return_book import ReturnBookPage
+from gui.settings import SettingsPage
 
 
 class LibraryGUI:
@@ -68,18 +71,15 @@ class LibraryGUI:
 
     def show_issue(self):
         self.clear_content()
-        label = ttk.Label(self.content, text="Issue", font=("Arial", 14))
-        label.pack(pady=10)
+        IssueBookPage(self.content)
 
     def show_return(self):
         self.clear_content()
-        label = ttk.Label(self.content, text="Return", font=("Arial", 14))
-        label.pack(pady=10)
+        ReturnBookPage(self.content)
 
     def show_settings(self):
         self.clear_content()
-        label = ttk.Label(self.content, text="Settings", font=("Arial", 14))
-        label.pack(pady=10)
+        SettingsPage(self.content)
 
     def logout(self):
         self.frame.destroy()
