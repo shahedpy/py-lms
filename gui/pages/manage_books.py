@@ -1,4 +1,4 @@
-""" gui > pages > book.py """
+""" gui > pages > manage_book.py """
 import tkinter as tk
 from tkinter import ttk,  messagebox
 from database import book_db

@@ -42,8 +42,23 @@ class TransactionDatabase:
     def return_book(self, transaction_id, actual_return_date):
         pass
 
-    def get_all_transactions(self):
-        pass
+    def get_issue_book_history(self):
+        with get_connection() as conn:
+            cursor = conn.execute("""
+                SELECT
+                    t.id,
+                    b.title AS book_title,
+                    m.name AS member_name,
+                    t.issue_date,
+                    t.return_date,
+                    t.actual_return_date,
+                    t.fine
+                FROM transactions t
+                JOIN books b ON t.book_id = b.id
+                JOIN members m ON t.member_id = m.id
+                ORDER BY t.id DESC
+            """)
+        return cursor.fetchall()
 
 
 transaction_db = TransactionDatabase()
