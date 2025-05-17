@@ -1,8 +1,8 @@
 """ gui > pages > issue_book.py """
 import tkinter as tk
 from tkinter import ttk, messagebox
-from database import member_db, book_db
-from datetime import date, timedelta
+from database import member_db, book_db, transaction_db
+from datetime import date
 
 
 class IssueBookPage:
@@ -38,6 +38,16 @@ class IssueBookPage:
         self.issue_date_entry.insert(0, date.today().isoformat())
         self.issue_date_entry.grid(row=5, column=0, padx=5, pady=5)
 
+        ttk.Label(form_frame, text="Return Date:").grid(
+            row=6, column=0, sticky=tk.W, padx=5, pady=5)
+        self.return_date_entry = ttk.Entry(form_frame)
+        self.return_date_entry.insert(0, date.today().isoformat())
+        self.return_date_entry.grid(row=7, column=0, padx=5, pady=5)
+
+        issue_button = ttk.Button(
+            form_frame, text="Issue Book", command=self.submit_issue)
+        issue_button.grid(row=8, column=0, pady=10)
+
     def load_members(self):
         try:
             members = member_db.get_members()
@@ -59,3 +69,30 @@ class IssueBookPage:
                 self.book_combo.current(0)
         except Exception as e:
             messagebox.showerror("Error", f"Failed to load books: {e}")
+
+    def submit_issue(self):
+        try:
+            member_label = self.member_combo.get()
+            book_label = self.book_combo.get()
+
+            if not member_label or not book_label:
+                messagebox.showwarning(
+                    "Validation Error", "Please select both member and book.")
+                return
+
+            member_id = self.member_map[member_label]
+            book_id = self.book_map[book_label]
+            issue_date = self.issue_date_entry.get()
+            return_date = self.return_date_entry.get()
+
+            if not issue_date or not return_date:
+                messagebox.showwarning(
+                    "Validation Error",
+                    "Please enter both issue and return dates.")
+                return
+
+            transaction_db.issue_book(
+                book_id, member_id, issue_date, return_date)
+            messagebox.showinfo("Success", "Book issued successfully.")
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to issue book: {e}")

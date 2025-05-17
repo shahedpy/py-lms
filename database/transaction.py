@@ -27,7 +27,17 @@ class TransactionDatabase:
             conn.commit()
 
     def issue_book(self, book_id, member_id, issue_date, return_date):
-        pass
+        """Insert a new book issue record into the transactions table."""
+        with get_connection() as conn:
+            conn.execute(
+                """
+                INSERT INTO transactions \
+                    (book_id, member_id, issue_date, return_date)
+                VALUES (?, ?, ?, ?)
+                """,
+                (book_id, member_id, issue_date, return_date),
+            )
+            conn.commit()
 
     def return_book(self, transaction_id, actual_return_date):
         pass
