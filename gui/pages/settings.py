@@ -12,6 +12,6 @@ class SettingsPage:
 
     def create_widgets(self):
         Label = ttk.Label(
-            self.content, text="Settings", font=("Arial", 14)
+            self.content, text="⚙️ Settings", font=("Arial", 14)
         )
         Label.pack(pady=5)

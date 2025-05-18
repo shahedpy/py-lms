@@ -12,10 +12,9 @@ class DashboardPage:
         self.create_widgets()
 
     def create_widgets(self):
-        title_label = ttk.Label(
-            self.content, text="📊 Dashboard", font=("Arial", 18, "bold")
-        )
-        title_label.pack(pady=(0, 20))
+        ttk.Label(
+            self.content, text="📊 Dashboard", font=("Arial", 16, "bold")
+        ).pack(pady=10)
 
         info_frame = ttk.Frame(self.content)
         info_frame.pack(fill=tk.BOTH, expand=True)
