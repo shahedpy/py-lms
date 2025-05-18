@@ -48,7 +48,7 @@ class IssueBookPage:
 
         issue_button = ttk.Button(
             form_frame, text="Issue Book", command=self.submit_issue)
-        issue_button.grid(row=2, column=4, pady=10)
+        issue_button.grid(row=2, column=0, pady=10, columnspan=4)
 
     def load_members(self):
         try:
@@ -101,16 +101,20 @@ class IssueBookPage:
             messagebox.showerror("Error", f"Failed to issue book: {e}")
 
     def create_table(self):
-        columns = ("ID", "Book Title", "Member Name", "Issue Date", "Return Date", "Actual Return Date", "Fine")
+        columns = (
+            "ID", "Book Title", "Member Name", "Issue Date",
+            "Return Date", "Actual Return Date", "Fine")
         table_frame = ttk.Frame(self.content)
         table_frame.pack(fill=tk.BOTH, expand=True, padx=10)
 
-        self.issue_table = ttk.Treeview(table_frame, columns=columns, show="headings")
+        self.issue_table = ttk.Treeview(
+            table_frame, columns=columns, show="headings")
         for col in columns:
             self.issue_table.heading(col, text=col)
             self.issue_table.column(col, width=120)
 
-        scrollbar = ttk.Scrollbar(table_frame, orient="vertical", command=self.issue_table.yview)
+        scrollbar = ttk.Scrollbar(
+            table_frame, orient="vertical", command=self.issue_table.yview)
         self.issue_table.configure(yscrollcommand=scrollbar.set)
 
         self.issue_table.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
