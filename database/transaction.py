@@ -1,5 +1,6 @@
 """ database > transaction.py """
 from database import get_connection
+from datetime import date
 
 
 class TransactionDatabase:
@@ -39,9 +40,6 @@ class TransactionDatabase:
             )
             conn.commit()
 
-    def return_book(self, transaction_id, actual_return_date):
-        pass
-
     def get_issue_book_history(self):
         with get_connection() as conn:
             cursor = conn.execute("""
@@ -59,6 +57,34 @@ class TransactionDatabase:
                 ORDER BY t.id DESC
             """)
         return cursor.fetchall()
+
+    def return_book(self, transaction_id, actual_return_date):
+        """Update the transaction with actual \
+              return date and calculate fine."""
+        with get_connection() as conn:
+            cursor = conn.execute("""
+                SELECT return_date FROM transactions
+                WHERE id = ? AND actual_return_date IS NULL
+            """, (transaction_id,))
+            row = cursor.fetchone()
+
+            if row is None:
+                raise Exception(
+                    "Invalid transaction ID or book already returned.")
+
+            return_date = row[0]
+            fine = 0
+            if actual_return_date > return_date:
+                days_late = (date.fromisoformat(actual_return_date) -
+                             date.fromisoformat(return_date)).days
+                fine = days_late * 10
+
+            conn.execute("""
+                UPDATE transactions
+                SET actual_return_date = ?, fine = ?
+                WHERE id = ?
+            """, (actual_return_date, fine, transaction_id))
+            conn.commit()
 
 
 transaction_db = TransactionDatabase()
