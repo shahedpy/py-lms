@@ -29,10 +29,10 @@ class LibraryGUI:
     def create_sidenav_buttons(self):
         buttons = {
             "📊 Dashboard": self.show_dashboard,
-            "📚 Books": self.show_books,
+            "📚 Manage Books": self.show_books,
             "👥 Members": self.show_members,
-            "➕ Issue": self.show_issue,
-            "📥 Return": self.show_return,
+            "📖 Issue Book": self.show_issue,
+            "📘 Return Book": self.show_return,
             "⚙️ Settings": self.show_settings,
         }
         for text, command in buttons.items():
