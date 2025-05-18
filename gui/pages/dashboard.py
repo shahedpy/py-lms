@@ -6,7 +6,7 @@ from tkinter import ttk
 class DashboardPage:
     def __init__(self, parent_frame):
         self.parent_frame = parent_frame
-        self.content = ttk.Frame(self.parent_frame, padding=20)
+        self.content = ttk.Frame(self.parent_frame, padding=0)
         self.content.pack(fill=tk.BOTH, expand=True)
 
         self.create_widgets()
@@ -39,7 +39,7 @@ class DashboardPage:
         self.total_transactions_label = create_stat_box(
             info_frame, "💳", "Total Transactions", 0)
         self.total_users_label = create_stat_box(
-            info_frame, "🧑‍💻", "Total Users", 0)
+            info_frame, "🧑", "Total Users", 0)
 
     def update_stats(self, books=0, members=0, transactions=0, users=0):
         self.total_books_label.config(text=f"📚 Total Books: {books}")

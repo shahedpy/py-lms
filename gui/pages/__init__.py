@@ -6,7 +6,7 @@ from .member import MemberPage
 from .manage_books import ManageBooksPage
 from .issue_book import IssueBookPage
 from .return_book import ReturnBookPage
-from .settings import SettingsPage
+from .change_password import ChangePassPage
 
 
 __all__ = [
@@ -16,5 +16,5 @@ __all__ = [
     ManageBooksPage,
     IssueBookPage,
     ReturnBookPage,
-    SettingsPage
+    ChangePassPage
 ]

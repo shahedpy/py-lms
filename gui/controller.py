@@ -4,7 +4,7 @@ from tkinter import ttk
 from gui.pages import (
     DashboardPage, MemberPage,
     ManageBooksPage, IssueBookPage, ReturnBookPage,
-    SettingsPage
+    ChangePassPage
 )
 
 
@@ -33,7 +33,7 @@ class LibraryGUI:
             "📚 Manage Books": self.show_books,
             "📖 Issue Book": self.show_issue,
             "📘 Return Book": self.show_return,
-            "⚙️ Settings": self.show_settings,
+            "🔒 Change Password": self.show_settings,
         }
         for text, command in buttons.items():
             button = ttk.Button(
@@ -78,7 +78,7 @@ class LibraryGUI:
 
     def show_settings(self):
         self.clear_content()
-        SettingsPage(self.content)
+        ChangePassPage(self.content)
 
     def logout(self):
         self.frame.destroy()

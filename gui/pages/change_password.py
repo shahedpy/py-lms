@@ -4,7 +4,7 @@ from tkinter import ttk
 from database import change_password
 
 
-class SettingsPage:
+class ChangePassPage:
     def __init__(self, parent_frame):
         self.parent_frame = parent_frame
         self.content = ttk.Frame(self.parent_frame, padding="0")
@@ -13,8 +13,8 @@ class SettingsPage:
 
     def create_widgets(self):
         ttk.Label(
-            self.content, text="⚙️ Settings", font=("Arial", 14)
-        ).pack(pady=5)
+            self.content, text="🔒 Change Password", font=("Arial", 14, "bold")
+        ).pack(pady=10)
 
         self.old_pass_var = tk.StringVar()
         self.new_pass_var = tk.StringVar()

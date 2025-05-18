@@ -7,7 +7,7 @@ from database import book_db
 class ManageBooksPage:
     def __init__(self, parent_frame):
         self.parent_frame = parent_frame
-        self.content = ttk.Frame(self.parent_frame, padding="0")
+        self.content = ttk.Frame(self.parent_frame, padding=0)
         self.content.pack(fill=tk.BOTH, expand=True)
 
         self.selected_book_id = None
