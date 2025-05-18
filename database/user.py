@@ -65,4 +65,35 @@ def authenticate_user(username, password):
         return bcrypt.checkpw(password.encode(), stored_hashed_password)
 
 
+def change_password(username, old_password, new_password):
+    """Change a user's password after verifying the old one."""
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute(
+        "SELECT password FROM users WHERE username = ? AND is_active = 1",
+        (username,)
+    )
+    user = cursor.fetchone()
+
+    if not user:
+        conn.close()
+        return False, "User not found or inactive."
+
+    stored_hashed_password = user[0]
+
+    if not bcrypt.checkpw(old_password.encode(), stored_hashed_password):
+        conn.close()
+        return False, "Old password is incorrect."
+
+    new_hashed_password = bcrypt.hashpw(
+        new_password.encode(), bcrypt.gensalt())
+    cursor.execute(
+        "UPDATE users SET password = ? WHERE username = ?",
+        (new_hashed_password, username)
+    )
+    conn.commit()
+    conn.close()
+    return True, "Password changed successfully."
+
+
 create_user_table()
