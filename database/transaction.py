@@ -86,5 +86,40 @@ class TransactionDatabase:
             """, (actual_return_date, fine, transaction_id))
             conn.commit()
 
+    def book_issue_count(self):
+        """Returns the total number of issued books."""
+        with get_connection() as conn:
+            cursor = conn.execute("""
+                SELECT COUNT(*) FROM transactions
+            """)
+            return cursor.fetchone()[0]
+
+    def book_return_count(self):
+        """Returns the total number of returned books."""
+        with get_connection() as conn:
+            cursor = conn.execute("""
+                SELECT COUNT(*) FROM transactions
+                WHERE actual_return_date IS NOT NULL
+            """)
+            return cursor.fetchone()[0]
+
+    def books_on_member_hand(self):
+        """Returns the total number of books on members hand."""
+        with get_connection() as conn:
+            cursor = conn.execute("""
+                SELECT COUNT(*) FROM transactions
+                WHERE actual_return_date IS NULL
+            """)
+            return cursor.fetchone()[0]
+
+    def total_fine(self):
+        """Returns total fine"""
+        with get_connection() as conn:
+            cursor = conn.execute("""
+                SELECT SUM(fine) FROM transactions
+                WHERE actual_return_date IS NOT NULL
+            """)
+            return cursor.fetchone()[0]
+
 
 transaction_db = TransactionDatabase()

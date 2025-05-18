@@ -1,6 +1,7 @@
 """ gui > pages > dashboard.py """
 import tkinter as tk
 from tkinter import ttk
+from database import book_db, member_db, transaction_db, total_users
 
 
 class DashboardPage:
@@ -32,14 +33,26 @@ class DashboardPage:
             label.pack(fill=tk.X)
             return label
 
-        self.total_books_label = create_stat_box(
-            info_frame, "📚", "Total Books", 0)
         self.total_members_label = create_stat_box(
-            info_frame, "👥", "Total Members", 0)
+            info_frame, "👥", "Total Members",
+            member_db.total_members())
+        self.total_books_label = create_stat_box(
+            info_frame, "📚", "Total Books",
+            book_db.total_books())
+        self.book_issued_label = create_stat_box(
+            info_frame, "📖", "Book Issued",
+            transaction_db.book_issue_count())
+        self.book_returned_label = create_stat_box(
+            info_frame, "📘", "Book Returned",
+            transaction_db.book_return_count())
+        self.book_on_members_hand_label = create_stat_box(
+            info_frame, "📗", "Books on Member's Hand",
+            transaction_db.books_on_member_hand())
         self.total_transactions_label = create_stat_box(
-            info_frame, "💳", "Total Transactions", 0)
+            info_frame, "💳", "Total Fine",
+            transaction_db.total_fine())
         self.total_users_label = create_stat_box(
-            info_frame, "🧑", "Total Users", 0)
+            info_frame, "🧑", "Total Users", total_users())
 
     def update_stats(self, books=0, members=0, transactions=0, users=0):
         self.total_books_label.config(text=f"📚 Total Books: {books}")

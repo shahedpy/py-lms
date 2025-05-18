@@ -96,4 +96,14 @@ def change_password(username, old_password, new_password):
     return True, "Password changed successfully."
 
 
+def total_users():
+    """ Returns the total number of users """
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM users")
+    total = cursor.fetchone()[0]
+    conn.close()
+    return total
+
+
 create_user_table()

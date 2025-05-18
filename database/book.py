@@ -75,5 +75,12 @@ class BookDatabase:
             )
             conn.commit()
 
+    def total_books(self):
+        """Returns the total number of books in the books table."""
+        with get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT COUNT(*) FROM books")
+            return cursor.fetchone()[0]
+
 
 book_db = BookDatabase()

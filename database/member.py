@@ -64,5 +64,12 @@ class MemberDatabase:
             )
             conn.commit()
 
+    def total_members(self):
+        """Returns the total number of members."""
+        with get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT COUNT(*) FROM members")
+            return cursor.fetchone()[0]
+
 
 member_db = MemberDatabase()
