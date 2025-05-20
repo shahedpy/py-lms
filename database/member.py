@@ -39,6 +39,19 @@ class MemberDatabase:
             cursor.execute("SELECT * FROM members")
             return cursor.fetchall()
 
+    def search_members(self, keyword):
+        with get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                SELECT * FROM members
+                WHERE name LIKE ? OR email LIKE ? OR phone LIKE ?
+                ORDER BY created_at DESC
+                """,
+                (f"%{keyword}%", f"%{keyword}%", f"%{keyword}%")
+            )
+            return cursor.fetchall()
+
     def update_member(self, member_id, name, email, phone):
         """Updates a member in the members table."""
         with get_connection() as conn:

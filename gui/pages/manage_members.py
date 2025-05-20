@@ -1,4 +1,4 @@
-""" gui > pages > member.py """
+""" gui > pages > manage_members.py """
 import tkinter as tk
 from tkinter import ttk
 from database import member_db
@@ -16,6 +16,23 @@ class MemberPage:
         ttk.Label(
             self.content, text="👥 Manage Members", font=("Arial", 16, "bold")
         ).pack(pady=5)
+
+        search_frame = ttk.Frame(self.content)
+        search_frame.pack(pady=5)
+
+        ttk.Label(
+            search_frame, text="🔍 Search:").pack(side=tk.LEFT, padx=(0, 5))
+
+        self.search_entry = ttk.Entry(search_frame, width=40)
+        self.search_entry.pack(side=tk.LEFT, padx=5)
+
+        search_button = ttk.Button(
+            search_frame, text="Search", command=self.search_members)
+        search_button.pack(side=tk.LEFT, padx=5)
+
+        reset_button = ttk.Button(
+            search_frame, text="Reset", command=self.reset_search)
+        reset_button.pack(side=tk.LEFT, padx=5)
 
         table_frame = ttk.Frame(self.content)
         table_frame.pack(fill=tk.BOTH, expand=True, pady=10)
@@ -70,6 +87,18 @@ class MemberPage:
         members = member_db.get_members()
         for member in members:
             self.member_table.insert("", "end", values=member)
+
+    def search_members(self):
+        search_term = self.search_entry.get()
+        if search_term:
+            self.member_table.delete(*self.member_table.get_children())
+            members = member_db.search_members(search_term)
+            for member in members:
+                self.member_table.insert("", "end", values=member)
+
+    def reset_search(self):
+        self.search_entry.delete(0, tk.END)
+        self.load_members()
 
     def submit_member(self):
         name = self.name_entry.get()
