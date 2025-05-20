@@ -161,11 +161,14 @@ class ManageBooksPage:
             self.author_entry.delete(0, tk.END)
             self.year_entry.delete(0, tk.END)
             self.price_entry.delete(0, tk.END)
+            self.total_copies_entry.delete(0, tk.END)
 
             self.title_entry.insert(0, book_data[1])
             self.author_entry.insert(0, book_data[2])
             self.year_entry.insert(0, book_data[3])
             self.price_entry.insert(0, book_data[4])
+            self.total_copies_entry.insert(0, book_data[5])
+            self.total_copies_entry.configure(state='readonly')
 
             self.update_button["state"] = tk.NORMAL
             self.delete_button["state"] = tk.NORMAL
@@ -193,6 +196,8 @@ class ManageBooksPage:
         self.author_entry.delete(0, tk.END)
         self.year_entry.delete(0, tk.END)
         self.price_entry.delete(0, tk.END)
+        self.total_copies_entry.delete(0, tk.END)
+
         self.selected_book_id = None
         self.add_button["state"] = tk.NORMAL
         self.update_button["state"] = tk.DISABLED
