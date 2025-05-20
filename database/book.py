@@ -16,20 +16,23 @@ class BookDatabase:
                     author TEXT NOT NULL,
                     year INTEGER NOT NULL,
                     price REAL NOT NULL,
+                    total_copies INTEGER DEFAULT 0,
+                    available_copies INTEGER DEFAULT 0,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
                 """)
             conn.commit()
 
-    def add_book(self, title, author, year, price):
+    def add_book(self, title, author, year, price, total_copies):
         """Adds a book to the books table."""
         with get_connection() as conn:
             conn.execute(
                 """
-                INSERT INTO books (title, author, year, price)
-                VALUES (?, ?, ?, ?)
+                INSERT INTO books (
+                    title, author, year, price, total_copies, available_copies
+                ) VALUES (?, ?, ?, ?, ?, ?)
                 """,
-                (title, author, year, price)
+                (title, author, year, price, total_copies, total_copies)
             )
             conn.commit()
 

@@ -30,6 +30,12 @@ class TransactionDatabase:
     def issue_book(self, book_id, member_id, issue_date, return_date):
         """Insert a new book issue record into the transactions table."""
         with get_connection() as conn:
+            conn.execute("""
+                UPDATE books
+                SET available_copies = available_copies - 1
+                WHERE id = ?
+            """, (book_id,))
+
             conn.execute(
                 """
                 INSERT INTO transactions \
@@ -78,6 +84,12 @@ class TransactionDatabase:
                 days_late = (date.fromisoformat(actual_return_date) -
                              date.fromisoformat(return_date)).days
                 fine = days_late * 10
+
+            conn.execute("""
+                UPDATE books
+                SET available_copies = available_copies + 1
+                WHERE id = (SELECT book_id FROM transactions WHERE id = ?)
+            """, (transaction_id,))
 
             conn.execute("""
                 UPDATE transactions

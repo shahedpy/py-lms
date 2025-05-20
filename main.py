@@ -7,7 +7,7 @@ class LibraryApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Library Management System")
-        self.root.geometry("1000x600")
+        self.root.geometry("1200x700")
 
         self.show_login_page()
 

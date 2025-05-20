@@ -33,7 +33,10 @@ class ManageBooksPage:
 
         table_frame = ttk.Frame(self.content)
         table_frame.pack(fill=tk.BOTH, expand=True, pady=10)
-        columns = ("ID", "Title", "Author", "Year", "Price", "Created At")
+        columns = (
+            "ID", "Title", "Author", "Year", "Price",
+            "Total Copies", "Available Copies", "Created At"
+        )
         self.book_table = ttk.Treeview(
             table_frame, columns=columns, show="headings"
         )
@@ -68,6 +71,10 @@ class ManageBooksPage:
         ttk.Label(form_frame, text="Price:").grid(row=0, column=3)
         self.price_entry = ttk.Entry(form_frame)
         self.price_entry.grid(row=1, column=3, padx=5)
+
+        ttk.Label(form_frame, text="Total Copies:").grid(row=0, column=4)
+        self.total_copies_entry = ttk.Entry(form_frame)
+        self.total_copies_entry.grid(row=1, column=4, padx=5)
 
         button_frame = ttk.Frame(self.content)
         button_frame.pack(pady=10)
@@ -135,9 +142,10 @@ class ManageBooksPage:
         author = self.author_entry.get()
         year = self.year_entry.get()
         price = self.price_entry.get()
+        total_copies = self.total_copies_entry.get()
 
         if title and author and year.isdigit() and price.replace('.', '', 1).isdigit(): # noqa
-            book_db.add_book(title, author, year, price)
+            book_db.add_book(title, author, year, price, total_copies)
             self.load_books()
             self.clear_form()
             messagebox.showinfo("Success", "Book added successfully!")
