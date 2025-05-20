@@ -21,9 +21,12 @@ class ManageBooksPage:
 
         search_frame = ttk.Frame(self.content)
         search_frame.pack(pady=5)
-        ttk.Label(search_frame).pack(side=tk.LEFT, padx=(0, 5))
+        ttk.Label(
+            search_frame, text="🔍 Search:").pack(side=tk.LEFT, padx=(0, 5))
+
         self.search_entry = ttk.Entry(search_frame, width=40)
         self.search_entry.pack(side=tk.LEFT, padx=5)
+
         search_button = ttk.Button(
             search_frame, text="Search", command=self.search_books)
         search_button.pack(side=tk.LEFT, padx=5)
