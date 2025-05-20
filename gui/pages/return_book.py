@@ -20,7 +20,6 @@ class ReturnBookPage:
             font=("Arial", 16, "bold")
         ).pack(pady=10)
 
-        # Table
         columns = (
             "ID", "Book Title", "Member Name", "Issue Date", "Return Date")
         self.table = ttk.Treeview(
@@ -29,8 +28,8 @@ class ReturnBookPage:
             self.table.heading(col, text=col)
             self.table.column(col, width=120)
         self.table.pack(padx=10, pady=10, fill=tk.BOTH, expand=True)
+        self.table.bind("<<TreeviewSelect>>", self.on_row_select)
 
-        # Return section
         form = ttk.Frame(self.content)
         form.pack(pady=10)
 
@@ -64,6 +63,14 @@ class ReturnBookPage:
                     )
         except Exception as e:
             messagebox.showerror("Error", f"Failed to load books: {e}")
+
+    def on_row_select(self, event):
+        selected_item = self.table.selection()
+        if selected_item:
+            item_values = self.table.item(selected_item[0], 'values')
+            transaction_id = item_values[0]
+            self.transaction_id_entry.delete(0, tk.END)
+            self.transaction_id_entry.insert(0, transaction_id)
 
     def return_book(self):
         try:
