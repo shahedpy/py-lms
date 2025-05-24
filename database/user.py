@@ -39,7 +39,8 @@ class UserDatabase:
                 conn.close()
                 return False
 
-            hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+            hashed_password = bcrypt.hashpw(
+                password.encode(), bcrypt.gensalt())
 
             cursor.execute(
                 "INSERT INTO users (username, password, is_superuser) VALUES (?, ?, ?)", # noqa
