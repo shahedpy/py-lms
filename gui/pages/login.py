@@ -2,7 +2,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from PIL import Image, ImageTk
-from database.user import authenticate_user
+from database import user_db
 
 
 class LoginPage:
@@ -68,7 +68,7 @@ class LoginPage:
             messagebox.showinfo("Success", "Login successful!")
 
     def authenticate_user(self, username, password):
-        if authenticate_user(username, password):
+        if user_db.authenticate_user(username, password):
             self.on_login_success()
         else:
             messagebox.showerror("Error", "Invalid username or password!")

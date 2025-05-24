@@ -1,7 +1,7 @@
 """ gui > pages > setting.py """
 import tkinter as tk
 from tkinter import ttk
-from database import change_password
+from database import user_db
 
 
 class ChangePassPage:
@@ -57,7 +57,8 @@ class ChangePassPage:
                 text="New passwords do not match.", foreground="red")
             return
 
-        success, message = change_password(username, old_pass, new_pass)
+        success, message = user_db.change_password(
+            username, old_pass, new_pass)
         color = "green" if success else "red"
         self.message_label.config(text=message, foreground=color)
         self.clear_entries()
