@@ -10,9 +10,13 @@ A simple Library Management System built with Python 3.13.3. This application he
 python main.py
 ```
 
-## 👑 Create Superuser
+## 👑 Create a Superuser
 ```bash
 python database/createsuperuser.py
+```
+## 🔐 Reset a User's Password
+```bash
+python database/resetpassword.py
 ```
 
 ## Features
