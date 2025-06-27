@@ -3,6 +3,7 @@ from .user import user_db
 from .book import book_db
 from .member import member_db
 from .transaction import transaction_db
+from .report import report_db
 
 __all__ = (
     get_connection,
@@ -10,4 +11,5 @@ __all__ = (
     book_db,
     member_db,
     transaction_db,
+    report_db,
 )

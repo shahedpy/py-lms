@@ -5,7 +5,7 @@ from gui.pages import (
     DashboardPage, MemberPage,
     ManageBooksPage, IssueBookPage, ReturnBookPage,
     ManageUserPage,
-    ChangePassPage
+    ChangePassPage, ReportsPage
 )
 
 
@@ -35,7 +35,8 @@ class LibraryGUI:
             "📖 Issue Book": self.show_issue,
             "📘 Return Book": self.show_return,
             "👤 Manage Users": self.show_users,
-            "🔒 Change Password": self.show_change_pass,
+            "� Reports": self.show_reports,
+            "�🔒 Change Password": self.show_change_pass,
         }
         for text, command in buttons.items():
             button = ttk.Button(
@@ -85,6 +86,10 @@ class LibraryGUI:
     def show_change_pass(self):
         self.clear_content()
         ChangePassPage(self.content)
+
+    def show_reports(self):
+        self.clear_content()
+        ReportsPage(self.content)
 
     def logout(self):
         self.frame.destroy()
