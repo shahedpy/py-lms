@@ -32,8 +32,8 @@ class ReportDatabase:
                     COUNT(DISTINCT t.member_id) as active_members
                 FROM members m
                 LEFT JOIN transactions t ON m.id = t.member_id
-                WHERE t.actual_return_date IS NULL 
-                   OR t.actual_return_date IS NOT NULL
+                WHERE t.actual_return_date IS NULL OR
+                                  t.actual_return_date IS NOT NULL
             """)
             result = cursor.fetchone()
 
