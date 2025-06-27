@@ -98,6 +98,37 @@ class UserDatabase:
         conn.close()
         return True, "Password changed successfully."
 
+    def reset_password(self, username, new_password):
+        """Reset a user's password without requiring the old password."""
+        try:
+            conn = get_connection()
+            cursor = conn.cursor()
+
+            cursor.execute(
+                "SELECT id FROM users WHERE username = ? AND is_active = 1",
+                (username,)
+            )
+            user = cursor.fetchone()
+
+            if not user:
+                conn.close()
+                return False, "User not found or inactive."
+
+            new_hashed_password = bcrypt.hashpw(
+                new_password.encode(), bcrypt.gensalt())
+
+            cursor.execute(
+                "UPDATE users SET password = ? WHERE username = ?",
+                (new_hashed_password, username)
+            )
+            conn.commit()
+            conn.close()
+            return True, "Password reset successfully."
+
+        except Exception as e:
+            print(f"Error resetting password: {e}")
+            return False, "An error occurred while resetting the password."
+
     def total_users(self):
         """ Returns the total number of users """
         conn = get_connection()
