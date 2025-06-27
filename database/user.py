@@ -138,5 +138,77 @@ class UserDatabase:
         conn.close()
         return total
 
+    def get_users(self):
+        """ Get all users from the database """
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT id, username, is_active, is_superuser
+            FROM users
+            ORDER BY id
+        """)
+        users = cursor.fetchall()
+        conn.close()
+        return users
+
+    def search_users(self, keyword):
+        """ Search users by username """
+        conn = get_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT id, username, is_active, is_superuser
+            FROM users
+            WHERE username LIKE ?
+            ORDER BY id
+        """, (f"%{keyword}%",))
+        users = cursor.fetchall()
+        conn.close()
+        return users
+
+    def update_user_status(self, user_id, is_active):
+        """ Update user active status """
+        try:
+            conn = get_connection()
+            cursor = conn.cursor()
+            cursor.execute(
+                "UPDATE users SET is_active = ? WHERE id = ?",
+                (is_active, user_id)
+            )
+            conn.commit()
+            conn.close()
+            return True
+        except Exception as e:
+            print(f"Error updating user status: {e}")
+            return False
+
+    def update_user_role(self, user_id, is_superuser):
+        """ Update user superuser status """
+        try:
+            conn = get_connection()
+            cursor = conn.cursor()
+            cursor.execute(
+                "UPDATE users SET is_superuser = ? WHERE id = ?",
+                (is_superuser, user_id)
+            )
+            conn.commit()
+            conn.close()
+            return True
+        except Exception as e:
+            print(f"Error updating user role: {e}")
+            return False
+
+    def delete_user(self, user_id):
+        """ Delete a user from the database """
+        try:
+            conn = get_connection()
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM users WHERE id = ?", (user_id,))
+            conn.commit()
+            conn.close()
+            return True
+        except Exception as e:
+            print(f"Error deleting user: {e}")
+            return False
+
 
 user_db = UserDatabase()
