@@ -17,7 +17,6 @@ class ReportsPage:
 
     def setup_ui(self):
         """Setup the reports user interface."""
-        # Title
         title_label = ttk.Label(
             self.frame,
             text="📊 Library Reports",

@@ -35,8 +35,8 @@ class LibraryGUI:
             "📖 Issue Book": self.show_issue,
             "📘 Return Book": self.show_return,
             "👤 Manage Users": self.show_users,
-            "� Reports": self.show_reports,
-            "�🔒 Change Password": self.show_change_pass,
+            "🗒️ Reports": self.show_reports,
+            "🔒 Change Password": self.show_change_pass,
         }
         for text, command in buttons.items():
             button = ttk.Button(

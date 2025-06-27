@@ -10,6 +10,7 @@ class ReportDatabase:
         """Initialize the report database."""
         pass
 
+    # BOOK --------------------------------------------------
     def get_book_statistics(self):
         """Get overall book statistics."""
         with get_connection() as conn:
@@ -23,31 +24,32 @@ class ReportDatabase:
             """)
             return cursor.fetchone()
 
+    # MEMBER ------------------------------------------------
     def get_member_statistics(self):
         """Get overall member statistics."""
         with get_connection() as conn:
-            cursor = conn.execute("""
-                SELECT
-                    COUNT(*) as total_members,
-                    COUNT(DISTINCT t.member_id) as active_members
-                FROM members m
-                LEFT JOIN transactions t ON m.id = t.member_id
-                WHERE t.actual_return_date IS NULL OR
-                                  t.actual_return_date IS NOT NULL
-            """)
-            result = cursor.fetchone()
+            cursor = conn.execute(
+                """SELECT COUNT(*) FROM members"""
+            )
+            total_members = cursor.fetchone()[0]
 
-            # Get members with currently issued books
-            cursor = conn.execute("""
-                SELECT COUNT(DISTINCT member_id) as members_with_books
+            cursor = conn.execute(
+                """SELECT COUNT(*) FROM members WHERE is_active = 1"""
+            )
+            active_members = cursor.fetchone()[0]
+
+            cursor = conn.execute(
+                """
+                SELECT COUNT(DISTINCT member_id)
                 FROM transactions
                 WHERE actual_return_date IS NULL
-            """)
+                """
+            )
             members_with_books = cursor.fetchone()[0]
 
             return {
-                'total_members': result[0],
-                'active_members': result[1] if result[1] else 0,
+                'total_members': total_members,
+                'active_members': active_members,
                 'members_with_books': members_with_books
             }
 

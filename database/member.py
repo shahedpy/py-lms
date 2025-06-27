@@ -15,6 +15,7 @@ class MemberDatabase:
                     name TEXT NOT NULL,
                     email TEXT NOT NULL,
                     phone TEXT NOT NULL,
+                    is_active BOOLEAN DEFAULT 1,
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
                 """)
