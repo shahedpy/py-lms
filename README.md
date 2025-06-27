@@ -51,28 +51,33 @@ python database/resetpassword.py
 ```
 .
 ├── main.py
+├── requirements.txt
+├── README.md
+|
 ├── assets/images/
 |   ├── bubt_full_logo.png
 |   └── bubt_logo.png
+|
 ├── database/
 │   ├── __init__.py
 │   ├── database.db
-│   ├── add_superuser.py
 │   ├── book.py
+│   ├── user.py
+│   ├── createsuperuser.py
+│   ├── resetpassword.py
 │   ├── member.py
 │   └── transaction.py
-├── gui/
-│   ├── __init__.py
-│   ├── controller.py
-│   └── pages/
-│       ├── __init__.py
-│       ├── login.py
-│       ├── dashboard.py
-│       ├── book.py
-│       ├── member.py
-│       ├── issue_book.py
-│       ├── return_book.py
-|       └── settings.py
-├── README.md
-└── requirements.txt
+|
+└── gui/
+    ├── __init__.py
+    ├── controller.py
+    └── pages/
+        ├── __init__.py
+        ├── login.py
+        ├── dashboard.py
+        ├── book.py
+        ├── member.py
+        ├── issue_book.py
+        ├── return_book.py
+        └── settings.py
 ```
