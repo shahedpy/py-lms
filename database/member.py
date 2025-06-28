@@ -85,5 +85,39 @@ class MemberDatabase:
             cursor.execute("SELECT COUNT(*) FROM members")
             return cursor.fetchone()[0]
 
+    def get_member_by_id(self, member_id):
+        """Returns a member by their ID."""
+        with get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM members WHERE id = ?", (member_id,))
+            return cursor.fetchone()
+
+    def get_member_transactions(self, member_id):
+        """Returns all transactions for a specific member."""
+        with get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT t.id, b.title, b.author, t.issue_date, t.return_date,
+                       t.actual_return_date, t.fine
+                FROM transactions t
+                JOIN books b ON t.book_id = b.id
+                WHERE t.member_id = ?
+                ORDER BY t.issue_date DESC
+            """, (member_id,))
+            return cursor.fetchall()
+
+    def get_member_active_books(self, member_id):
+        """Returns currently borrowed books for a specific member."""
+        with get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT t.id, b.title, b.author, t.issue_date, t.return_date
+                FROM transactions t
+                JOIN books b ON t.book_id = b.id
+                WHERE t.member_id = ? AND t.actual_return_date IS NULL
+                ORDER BY t.issue_date DESC
+            """, (member_id,))
+            return cursor.fetchall()
+
 
 member_db = MemberDatabase()

@@ -5,8 +5,9 @@ from database import member_db
 
 
 class MemberPage:
-    def __init__(self, parent_frame):
+    def __init__(self, parent_frame, on_view_details=None):
         self.parent_frame = parent_frame
+        self.on_view_details = on_view_details
         self.content = ttk.Frame(self.parent_frame, padding="0")
         self.content.pack(fill=tk.BOTH, expand=True)
 
@@ -79,6 +80,19 @@ class MemberPage:
         )
         self.add_button.grid(row=0, column=0, padx=5)
 
+        self.update_button = ttk.Button(
+            button_frame, text="Update Member", command=self.update_member
+        )
+        self.update_button.grid(row=0, column=1, padx=5)
+
+        if self.on_view_details:
+            self.view_details_button = ttk.Button(
+                button_frame, text="View Details",
+                command=self.view_member_details
+            )
+            self.view_details_button.grid(row=0, column=2, padx=5)
+
+        self.selected_member_id = None
         self.load_members()
 
     def load_members(self):
@@ -115,14 +129,37 @@ class MemberPage:
         if selected:
             item = self.member_table.item(selected[0])
             values = item["values"]
+            self.selected_member_id = values[0]  # Store the member ID
             self.name_entry.delete(0, tk.END)
             self.name_entry.insert(0, values[1])
             self.email_entry.delete(0, tk.END)
             self.email_entry.insert(0, values[2])
             self.phone_entry.delete(0, tk.END)
             self.phone_entry.insert(0, values[3])
+            self.add_button.config(text="Add Member")
+
+    def update_member(self):
+        if not self.selected_member_id:
+            return
+
+        name = self.name_entry.get()
+        email = self.email_entry.get()
+        phone = self.phone_entry.get()
+
+        if name and email and phone:
+            member_db.update_member(
+                self.selected_member_id, name, email, phone
+            )
+            self.load_members()
+            self.clear_entries()
+            self.selected_member_id = None
+
+    def view_member_details(self):
+        if self.selected_member_id and self.on_view_details:
+            self.on_view_details(self.selected_member_id)
 
     def clear_entries(self):
         self.name_entry.delete(0, tk.END)
         self.email_entry.delete(0, tk.END)
         self.phone_entry.delete(0, tk.END)
+        self.selected_member_id = None
