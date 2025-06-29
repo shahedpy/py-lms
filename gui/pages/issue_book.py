@@ -103,7 +103,7 @@ class IssueBookPage:
     def create_table(self):
         columns = (
             "ID", "Book Title", "Member Name", "Issue Date",
-            "Return Date", "Actual Return Date", "Fine")
+            "Return Date", "Actual Return Date", "Fine", "Payment Status")
         table_frame = ttk.Frame(self.content)
         table_frame.pack(fill=tk.BOTH, expand=True, padx=10)
 
@@ -125,6 +125,21 @@ class IssueBookPage:
             records = transaction_db.get_issue_book_history()
             self.issue_table.delete(*self.issue_table.get_children())
             for row in records:
-                self.issue_table.insert("", tk.END, values=row)
+                # Format the row to include payment status
+                formatted_row = list(row)
+
+                # Format fine amount
+                if formatted_row[6] and formatted_row[6] > 0:
+                    formatted_row[6] = f"${formatted_row[6]:.2f}"
+                else:
+                    formatted_row[6] = "No Fine"
+
+                # Format payment status
+                if len(formatted_row) > 7 and formatted_row[6] != "No Fine":
+                    formatted_row[7] = "Paid" if formatted_row[7] else "Unpaid"
+                else:
+                    formatted_row.append("N/A")
+
+                self.issue_table.insert("", tk.END, values=formatted_row)
         except Exception as e:
             messagebox.showerror("Error", f"Failed to load issued books: {e}")

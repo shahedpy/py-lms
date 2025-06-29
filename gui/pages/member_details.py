@@ -58,11 +58,6 @@ class MemberDetailsPage:
             row=1, column=0, sticky="w", padx=(0, 20), pady=(5, 0)
         )
 
-        self.created_label = ttk.Label(
-            info_frame, text="Member Since: Loading...", font=("Arial", 12)
-        )
-        self.created_label.grid(row=1, column=1, sticky="w", pady=(5, 0))
-
         self.status_label = ttk.Label(
             info_frame, text="Status: Loading...", font=("Arial", 12)
         )
@@ -102,7 +97,7 @@ class MemberDetailsPage:
         # Create treeview for transaction history
         history_columns = (
             "ID", "Title", "Author", "Issue Date", "Due Date",
-            "Return Date", "Fine"
+            "Return Date", "Fine", "Payment Status"
         )
         self.history_tree = ttk.Treeview(
             history_frame, columns=history_columns, show="headings", height=8
@@ -183,9 +178,15 @@ class MemberDetailsPage:
                     if transaction[6] and transaction[6] > 0
                     else "No Fine"
                 )
+                # Payment status (index 7 in the new query result)
+                payment_status = "N/A"
+                if len(transaction) > 7 and fine != "No Fine":
+                    payment_status = "Paid" if transaction[7] else "Unpaid"
+
                 formatted_transaction = (
                     transaction[0], transaction[1], transaction[2],
-                    transaction[3], transaction[4], return_date, fine
+                    transaction[3], transaction[4], return_date, fine,
+                    payment_status
                 )
                 self.history_tree.insert(
                     "", "end", values=formatted_transaction
@@ -193,7 +194,8 @@ class MemberDetailsPage:
             if not transactions:
                 self.history_tree.insert(
                     "", "end",
-                    values=("", "No transaction history", "", "", "", "", "")
+                    values=("", "No transaction history", "",
+                            "", "", "", "", "")
                 )
 
         except Exception as e:

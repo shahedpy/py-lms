@@ -53,7 +53,8 @@ class ReturnBookPage:
             records = transaction_db.get_issue_book_history()
             self.table.delete(*self.table.get_children())
             for row in records:
-                transaction_id, book, member, issue_date, return_date, actual_return_date, _ = row # noqa
+                (transaction_id, book, member, issue_date, return_date,
+                 actual_return_date, fine, is_fine_paid) = row
                 if actual_return_date is None:
                     self.table.insert(
                         "", tk.END,

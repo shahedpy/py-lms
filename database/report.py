@@ -63,7 +63,11 @@ class ReportDatabase:
                         THEN 1 ELSE 0 END) as pending_returns,
                     SUM(CASE WHEN actual_return_date IS NOT NULL
                         THEN 1 ELSE 0 END) as completed_returns,
-                    COALESCE(SUM(fine), 0) as total_fine_collected
+                    COALESCE(SUM(fine), 0) as total_fine_collected,
+                    COALESCE(SUM(CASE WHEN fine > 0 AND is_fine_paid = 1
+                        THEN fine ELSE 0 END), 0) as paid_fines,
+                    COALESCE(SUM(CASE WHEN fine > 0 AND is_fine_paid = 0
+                        THEN fine ELSE 0 END), 0) as unpaid_fines
                 FROM transactions
             """)
             return cursor.fetchone()
@@ -160,7 +164,8 @@ class ReportDatabase:
                     t.actual_return_date,
                     t.fine,
                     julianday(actual_return_date) -
-                    julianday(return_date) as days_late
+                    julianday(return_date) as days_late,
+                    t.is_fine_paid
                 FROM transactions t
                 JOIN books b ON t.book_id = b.id
                 JOIN members m ON t.member_id = m.id

@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from datetime import date
 from database.report import report_db
+from database.transaction import transaction_db
 import csv
 import os
 
@@ -463,9 +464,21 @@ class ReportsPage:
                 tree, "fines_report.csv"))
         export_btn.pack(side=tk.LEFT, padx=5)
 
+        # Payment control buttons
+        mark_paid_btn = ttk.Button(
+            controls, text="Mark as Paid",
+            command=lambda: self.mark_fine_as_paid(tree))
+        mark_paid_btn.pack(side=tk.LEFT, padx=5)
+
+        mark_unpaid_btn = ttk.Button(
+            controls, text="Mark as Unpaid",
+            command=lambda: self.mark_fine_as_unpaid(tree))
+        mark_unpaid_btn.pack(side=tk.LEFT, padx=5)
+
         # Treeview
         columns = ("ID", "Book Title", "Member Name", "Email",
-                   "Due Date", "Return Date", "Fine", "Days Late")
+                   "Due Date", "Return Date", "Fine", "Days Late",
+                   "Payment Status")
         tree = ttk.Treeview(fines_frame, columns=columns, show="headings")
 
         for col in columns:
@@ -492,8 +505,52 @@ class ReportsPage:
             # Format the row data
             formatted_row = list(row)
             formatted_row[6] = f"${row[6]:.2f}"  # Format fine amount
-            formatted_row[7] = f"{int(row[7])}" if row[7] else "0"
+            formatted_row[7] = f"{int(row[7])}" if row[7] else "0"  # Days late
+            # Add payment status (index 8 in the new query result)
+            formatted_row.append("Paid" if row[8] else "Unpaid")
             tree.insert("", tk.END, values=formatted_row)
+
+    def mark_fine_as_paid(self, tree):
+        """Mark selected fine as paid."""
+        selected_items = tree.selection()
+        if not selected_items:
+            messagebox.showwarning(
+                "Warning", "Please select a fine to mark as paid.")
+            return
+
+        try:
+            for item in selected_items:
+                values = tree.item(item)['values']
+                transaction_id = values[0]  # First column is transaction ID
+                transaction_db.mark_fine_as_paid(transaction_id)
+
+            messagebox.showinfo(
+                "Success", "Fine(s) marked as paid successfully.")
+            self.load_fines_data(tree)  # Refresh the data
+        except Exception as e:
+            messagebox.showerror(
+                "Error", f"Failed to mark fine as paid: {str(e)}")
+
+    def mark_fine_as_unpaid(self, tree):
+        """Mark selected fine as unpaid."""
+        selected_items = tree.selection()
+        if not selected_items:
+            messagebox.showwarning(
+                "Warning", "Please select a fine to mark as unpaid.")
+            return
+
+        try:
+            for item in selected_items:
+                values = tree.item(item)['values']
+                transaction_id = values[0]  # First column is transaction ID
+                transaction_db.mark_fine_as_unpaid(transaction_id)
+
+            messagebox.showinfo(
+                "Success", "Fine(s) marked as unpaid successfully.")
+            self.load_fines_data(tree)  # Refresh the data
+        except Exception as e:
+            messagebox.showerror(
+                "Error", f"Failed to mark fine as unpaid: {str(e)}")
 
     def export_treeview_to_csv(self, tree, filename):
         """Export treeview data to CSV file."""

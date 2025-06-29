@@ -7,6 +7,7 @@ from gui.pages import (
     ManageUserPage,
     ChangePassPage, ReportsPage
 )
+from gui.pages.fine_management import FineManagementPage
 
 
 class LibraryGUI:
@@ -34,8 +35,9 @@ class LibraryGUI:
             "📚 Manage Books": self.show_books,
             "📖 Issue Book": self.show_issue,
             "📘 Return Book": self.show_return,
-            "👤 Manage Users": self.show_users,
+            "💵 Fine Management": self.show_fine_management,
             "🗒️ Reports": self.show_reports,
+            "👤 Manage Users": self.show_users,
             "🔒 Change Password": self.show_change_pass,
         }
         for text, command in buttons.items():
@@ -90,6 +92,10 @@ class LibraryGUI:
     def show_reports(self):
         self.clear_content()
         ReportsPage(self.content)
+
+    def show_fine_management(self):
+        self.clear_content()
+        FineManagementPage(self.content)
 
     def show_member_details(self, member_id):
         self.clear_content()

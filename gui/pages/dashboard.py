@@ -48,9 +48,15 @@ class DashboardPage:
         self.book_on_members_hand_label = create_stat_box(
             info_frame, "📗", "Books on Member's Hand",
             transaction_db.books_on_member_hand())
-        self.total_transactions_label = create_stat_box(
-            info_frame, "💳", "Total Fine",
-            transaction_db.total_fine())
+        self.total_fine_label = create_stat_box(
+            info_frame, "💰", "Total Fine",
+            f"${transaction_db.total_fine() or 0:.2f}")
+        self.paid_fine_label = create_stat_box(
+            info_frame, "✅", "Paid Fines",
+            f"${transaction_db.total_paid_fine():.2f}")
+        self.unpaid_fine_label = create_stat_box(
+            info_frame, "❌", "Unpaid Fines",
+            f"${transaction_db.total_unpaid_fine():.2f}")
         self.total_users_label = create_stat_box(
             info_frame, "🧑", "Total Users", user_db.total_users())
 

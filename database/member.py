@@ -98,7 +98,7 @@ class MemberDatabase:
             cursor = conn.cursor()
             cursor.execute("""
                 SELECT t.id, b.title, b.author, t.issue_date, t.return_date,
-                       t.actual_return_date, t.fine
+                       t.actual_return_date, t.fine, t.is_fine_paid
                 FROM transactions t
                 JOIN books b ON t.book_id = b.id
                 WHERE t.member_id = ?
