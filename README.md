@@ -12,11 +12,11 @@ python main.py
 
 ## 👑 Create a Superuser
 ```bash
-python database/createsuperuser.py
+python main.py createsuperuser
 ```
 ## 🔐 Reset a User's Password
 ```bash
-python database/resetpassword.py
+python main.py resetpassword
 ```
 
 ## Features
