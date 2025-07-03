@@ -1,5 +1,5 @@
 """ database > member.py """
-from database import get_connection
+from .db_connection import get_connection
 
 
 class MemberDatabase:
@@ -63,6 +63,19 @@ class MemberDatabase:
                 WHERE id = ?
                 """,
                 (name, email, phone, member_id)
+            )
+            conn.commit()
+
+    def update_member_status(self, member_id, is_active):
+        """Updates a member's active status."""
+        with get_connection() as conn:
+            conn.execute(
+                """
+                UPDATE members
+                SET is_active = ?
+                WHERE id = ?
+                """,
+                (is_active, member_id)
             )
             conn.commit()
 

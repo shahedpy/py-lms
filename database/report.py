@@ -1,5 +1,5 @@
 """ database > report.py """
-from database import get_connection
+from .db_connection import get_connection
 from datetime import datetime
 
 

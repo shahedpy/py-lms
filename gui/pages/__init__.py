@@ -10,6 +10,7 @@ from .return_book import ReturnBookPage
 from .manage_users import ManageUserPage
 from .change_password import ChangePassPage
 from .reports import ReportsPage
+from .fine_management import FineManagementPage
 
 
 __all__ = [
@@ -22,5 +23,6 @@ __all__ = [
     ReturnBookPage,
     ManageUserPage,
     ChangePassPage,
-    ReportsPage
+    ReportsPage,
+    FineManagementPage
 ]

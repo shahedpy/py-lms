@@ -5,9 +5,8 @@ from gui.pages import (
     DashboardPage, MemberPage, MemberDetailsPage,
     ManageBooksPage, IssueBookPage, ReturnBookPage,
     ManageUserPage,
-    ChangePassPage, ReportsPage
+    ChangePassPage, ReportsPage, FineManagementPage
 )
-from gui.pages.fine_management import FineManagementPage
 
 
 class LibraryGUI:
@@ -104,26 +103,3 @@ class LibraryGUI:
     def logout(self):
         self.frame.destroy()
         self.on_logout()
-
-
-def show_login_page():
-    for widget in root.winfo_children():
-        widget.destroy()
-
-    login_label = ttk.Label(root, text="Login Page")
-    login_label.pack(pady=20)
-
-    back_button = ttk.Button(
-        root, text="Back to Main UI", command=show_main_ui)
-    back_button.pack(pady=10)
-
-
-def show_main_ui():
-    for widget in root.winfo_children():
-        widget.destroy()
-
-
-if __name__ == "__main__":
-    root = tk.Tk()
-    show_main_ui()
-    root.mainloop()
